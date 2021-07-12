@@ -18,7 +18,7 @@ along with numpy and panda library for making it faster.
 
 **Server:** Node, Express
 
-**Database:** CSV File
+**Database:** CSV File , MongoDB
 
 **Web Framework:** Django
   
