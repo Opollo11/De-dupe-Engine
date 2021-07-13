@@ -4,20 +4,29 @@ import pandas as pd
 
 demoClient = MongoClient()
 myClient = MongoClient("localhost", 27017)
-myDatabase = myClient["BajajHacks"]
+myDatabase = myClient["MegaFileBajaj"]
 
 myCollection = myDatabase["Existing CSV data"]
 
-df = pd.read_csv('..\..\Database\cleaned.csv')
+df = pd.read_csv('..\..\Database\Generated.csv')
 
 # For Entering CSV rows into Mongo_DB
 for index, row in df.iterrows():
-    name = row['name']
-    address = row['address']
-    phone = row['phone']
-    profileID = row['profile_id']
-    uniqueID = row['uniq_id']
-    myCollection.insert_many([{"name": name, "address": address, "phone": phone, "profileID": profileID,
-                               "uniqueID": uniqueID}])
+    MRN = row['MRN Number']
+    firstName=row['First Name']
+    lastName = row['Last Name']
+    address = row['Address']
+    phone = row['Phone Number']
+    yoe= row['Years of Exp.']
+    specialization = row['Specialization']
+    education = row['Education']
+    myCollection.insert_many([{"MRN": MRN,
+    "First Name": firstName,
+    "Last Name": lastName, 
+    "address": address, 
+    "phone": phone, 
+    "years of experience": yoe,
+    "Specialization":specialization,
+    "Education":education}])
 
 print("Complete")
