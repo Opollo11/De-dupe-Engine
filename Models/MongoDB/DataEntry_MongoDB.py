@@ -8,7 +8,7 @@ myDatabase = myClient["BajajHacks"]
 
 myCollection = myDatabase["Existing CSV data"]
 
-df = pd.read_csv('cleaned.csv')
+df = pd.read_csv('..\..\Database\cleaned.csv')
 
 # For Entering CSV rows into Mongo_DB
 for index, row in df.iterrows():
