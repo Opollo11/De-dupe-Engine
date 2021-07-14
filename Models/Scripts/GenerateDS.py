@@ -4,7 +4,7 @@ import random
 import names
 import string
 from faker import Faker
-fake=Faker()
+
 
 # PHONE NUMBER GENERATION
 def random_phone_num_generator():
@@ -45,8 +45,10 @@ def getEducation():
     edlist = ['MD in Anatomy, ', 'MD in Anesthesia, ', 'MD in Aerospace Medicine, ', 'MD in Biochemistry, ',
               'MD in Dermatology, ', 'MD in ENT, ', 'MD in Forensic Medicine, ', 'MD in Geriatrics, ',
               'MD in General Surgery, ', 'MD in Ophthalmology, ',
-              'MD in Obstetrics & Gynecology, ', 'MD in Orthopedics, ', 'MS Pediatric surgery, ', 'MS Plastic surgery, ',
-              'MS Cardiothoracic surgery, ', 'MS Urology, ', 'MS Cardiac surgery, ', 'MS Cosmetic surgery, ', 'MS ENT, ',
+              'MD in Obstetrics & Gynecology, ', 'MD in Orthopedics, ', 'MS Pediatric surgery, ',
+              'MS Plastic surgery, ',
+              'MS Cardiothoracic surgery, ', 'MS Urology, ', 'MS Cardiac surgery, ', 'MS Cosmetic surgery, ',
+              'MS ENT, ',
               'MS Ophthalmology, ', 'MS Gynecology, ', 'MS Obstetrics, ', 'MS Orthopedics, ']
     str = 'MBBS, '
     index = random.randint(0, 22)
@@ -60,6 +62,13 @@ def getuniqId():
     return x
 
 
+# GENERATE FAKE ADDRESS
+def getAddr():
+    fake = Faker()
+    addr = fake.address()
+    return addr
+
+
 # MAIN
 data = []
 for i in range(1000000):
@@ -67,16 +76,16 @@ for i in range(1000000):
     name = getName().split(" ")
     fName = name[0]
     lName = name[1]
-    address=fake.address()
     phone = random_phone_num_generator()
     exp = assignYOE()
     # Assigning no. of specialiasion by assigning a random value within (1,2,3)
     no_of_spez = random.randint(1, 2)
     spez = getSpecialization(no_of_spez)
     edu = getEducation()
-    data.append([uniqId, fName, lName, address, phone, exp, spez, edu])
+    addr = getAddr()
+    data.append([uniqId, fName, lName, phone, exp, spez, edu,addr])
 
-dataFrame = pd.DataFrame(data, columns=['MRN Number', 'First Name', 'Last Name', 'Address', 'Phone Number', 'Years of Exp.',
-                                           'Specialization', 'Education'])
+dataFrame = pd.DataFrame(data, columns=['MRN Number', 'First Name', 'Last Name', 'Phone Number', 'Years of Exp.',
+                                        'Specialization', 'Education', 'Address'])
 dataFrame.to_csv('..\..\Database\Generated.csv')
 print('DataGenerated - check CSV file in directory')
