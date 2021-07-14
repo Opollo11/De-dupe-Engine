@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<body>
+<style>
+    .center{
+  position: relative;
+  top: 25%;
+  transform: translateY(-50%);
+}
+.box {
+  font-size: 1.25rem;
+  background-color: #d9edf7;
+  padding: 20px 20px;
+  position: relative;
+  box-shadow: 0 1px #FFFFFF inset, 0 1px 3px rgba(34, 25, 25, 0.4);
+}
+
+.box__input {
+  font-size: 2.5rem;
+  color: #00529b;
+  padding: 30px 20px;
+}
+
+.box__input label u:hover {
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.box__dragndrop, .box__uploading, .box__success, .box__error {
+  display: none;
+}
+
+.box.has-advanced-upload #arrow {
+  position: absolute;
+  left: calc((100% - 64.28px) / 2);
+  animation: fall 2s linear infinite;
+}
+
+@keyframes fall {
+  0% {
+    top: 35%
+  }
+  50% {
+    top: 30%
+  }
+  75% {
+    top: 32.5%
+  }
+  100% {
+    top: 35%
+  }
+}
+
+.box.has-advanced-upload {
+  outline: 2px dashed #92b0b3;
+  outline-offset: -10px;
+  -webkit-transition: outline-offset 1.5s ease-in-out, background-color 1.5s linear;
+  transition: outline-offset 1.5s ease-in-out, background-color 1.5s linear;
+}
+
+.box.has-advanced-upload .box__dragndrop {
+  display: inline;
+}
+
+.box.is-dragover {
+  background-color: grey;
+}
+</style>
+
+
+  <!-- in spired by https://css-tricks.com/drag-and-drop-file-uploading/ -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <div class="center">
+    <!-- file drag drop area -->
+    <div class="col-md-6 col-md-offset-3 text-center">
+      <form class="box" method="post" action="" enctype="multipart/form-data">
+        <div class="box__input">
+          <input class="box__file" type="file" style="visibility: hidden;" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
+          <div id="arrow">
+            <i class="fa fa-arrow-circle-down fa-3x" aria-hidden="true"></i>
+          </div>
+          <label for="file" style="margin-top: 100px;"><strong><u>Choose a file</u></strong> <span class="box__dragndrop"> or drop the file here</span>.</label>
+          <div>
+            <button class="btn btn-primary" style="background-color: #00529b;">Submit</button>
+          </div>
+        </div>
+        <div class="box__uploading">Uploading&hellip;</div>
+        <div class="box__success">Done!</div>
+        <div class="box__error">Error! <span></span></div>
+      </form>
+    </div>
+    <!-- file drag drop area -->
+  </div>
+
+</body>
+
+
+
+</html>
