@@ -71,7 +71,7 @@ def getAddr():
 
 # MAIN
 data = []
-for i in range(1000000):
+for i in range(50000):
     uniqId = getuniqId()
     name = getName().split(" ")
     fName = name[0]
@@ -87,5 +87,5 @@ for i in range(1000000):
 
 dataFrame = pd.DataFrame(data, columns=['MRN Number', 'First Name', 'Last Name', 'Phone Number', 'Years of Exp.',
                                         'Specialization', 'Education', 'Address'])
-dataFrame.to_csv('..\..\Database\Generated.csv')
+dataFrame.to_csv('Generated.csv')
 print('DataGenerated - check CSV file in directory')
