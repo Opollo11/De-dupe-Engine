@@ -2,7 +2,7 @@ import os
 
 
 def split(filehandler, delimiter=',', row_limit=100001,
-          output_name_template='Block%s.csv', output_path='.', keep_headers=True):
+          output_name_template='Block%s.csv', output_path='..\..\Database', keep_headers=True):
     import csv
     reader = csv.reader(filehandler, delimiter=delimiter)
     current_piece = 1
@@ -30,5 +30,5 @@ def split(filehandler, delimiter=',', row_limit=100001,
 
 
 # SPLIT EXISTING CSV TO 10 BLOCKS
-split(open('Generated.csv', 'r'))
+split(open('..\..\..\Generated.csv', 'r'))
 print("Done")
