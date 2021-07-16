@@ -1,4 +1,4 @@
-from multiprocessing import Process
+import multiprocessing 
 from pymongo import MongoClient
 import pandas as pd
 
@@ -13,7 +13,7 @@ def func1():
     for i in range(1, 10, 2):
         collection_name = "Block" + str(i)
         myCollection = myDatabase[collection_name]
-        blockName = collection_name + ".csv"
+        blockName = '..\\..\\Database\\'+collection_name + ".csv"
         df = pd.read_csv(blockName)
         for index, row in df.iterrows():
             mrn = row['MRN Number']
@@ -35,7 +35,7 @@ def func2():
     for i in range(2, 11, 2):
         collection_name = "Block" + str(i)
         myCollection = myDatabase[collection_name]
-        blockName = collection_name + ".csv"
+        blockName = '..\\..\\Database\\'+collection_name + ".csv"
         df = pd.read_csv(blockName)
         for index, row in df.iterrows():
             mrn = row['MRN Number']
