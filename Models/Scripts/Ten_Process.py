@@ -3,19 +3,18 @@ from pymongo import MongoClient
 import pandas as pd
 import Levenshtein as lev
 
+simi=list()
 # MONGO DB CONNECTION
 demoClient = MongoClient()
 myClient = MongoClient("localhost", 27017)
 myDatabase = myClient["BajajHacks"]
 
-similarData = []
-flag = 0
-
+flag=0
 # SEARCH RESPECTIVE COLLECTION IN MONGO -
 def dedupe(collectionName, MRN_inp, firstName_inp, lastName_inp, address_inp, phone_inp, exp_inp, spez_inp,
            education_inp):
     myCollection = myDatabase[collectionName]
-
+    similarData = list()
     # DECLARE THRESHOLDS HERE - INPUTS FROM SLIDERS IN FRONT END
     MRNThreshold = 0.8
     firstNameThreshold = 0.7
@@ -25,7 +24,8 @@ def dedupe(collectionName, MRN_inp, firstName_inp, lastName_inp, address_inp, ph
     expThreshold = 2
     spezThreshold = 0.7
     educationThreshold = 0.5
-
+    flag = 0
+    #similarData = []
     # # USER INPUT - SINGLE USER SCENARIO - FED FROM FORMS IN FRONTEND
     # MRN_inp = input("Enter your MRN number: ")
     # firstName_inp = input("Enter your First name: ")
@@ -77,12 +77,14 @@ def dedupe(collectionName, MRN_inp, firstName_inp, lastName_inp, address_inp, ph
                            eduSimilarityScore) / 7
 
         if score >= 5 or similarityScore > 0.65:
-            similarData.append(
-                [document.get('MRN'), document.get('First Name'), document.get('Last Name'), document.get('Address'),
+            
+            similarData.append([document.get('MRN'), document.get('First Name'), document.get('Last Name'), document.get('Address'),
                  str(document.get('Phone')), document.get('Specialization'), document.get('Years of Exp'),
-                 document.get('Education'), similarityScore, collectionName])
-            global flag
+                 document.get('Education'), similarityScore])
+            #print(similarData)
             flag = 1
+
+    #this part will check for each block and print similarity block wise 
 
     count = 1
 
@@ -107,13 +109,48 @@ def dedupe(collectionName, MRN_inp, firstName_inp, lastName_inp, address_inp, ph
             print("Specialization: ", row['Specialization'])
             print('Education: ', row['Education'])
             print("")
+            simi.append([row['SimilarityScore'], row['MRN'],  row['LastName'],row['FirstName']])
             count = count + 1
             if count == 6:
                 break
-
+        print(simi)
         print('-----PROCEED WITH HANDLING THE DUPLICATE ENTRIES ----- ')
 
 
+
+    #this part will check in total
+
+
+    # count = 1
+
+    # if flag == 0:
+    #     print('---Data unique. No Similar Entries in', collectionName,
+    #           '- PROCEED TO ENTER THE DATA INTO THE DATASET/CSV  ---')
+    # else:
+    #     print('--- SIMILAR ENTRIES FOUND in ', collectionName, '---')
+    #     data_similarity = pd.DataFrame(similarData, columns=['MRN', 'FirstName', 'LastName', 'Address', 'Phone',
+    #                                                          'Specialization', 'Years Of Exp', 'Education',
+    #                                                          'SimilarityScore'])
+    #     data_similarity = data_similarity.sort_values('SimilarityScore', ascending=False)
+    #     # THIS DATAFRAME CAN BE CONVERTED TO CSV FILE TOO IF NECESSARY
+    #     for index, row in data_similarity.iterrows():
+    #         print(count)
+    #         print("SIMILARITY SCORE: ", row['SimilarityScore'])
+    #         print("MRN: ", row['MRN'])
+    #         print("Name: ", row['FirstName'], ' ', row['LastName'])
+    #         print("Address: ", row['Address'])
+    #         print("Phone: ", row['Phone'])
+    #         print("Years of Exp: ", row['Years Of Exp'])
+    #         print("Specialization: ", row['Specialization'])
+    #         print('Education: ', row['Education'])
+    #         print("")
+    #         count = count + 1
+    #         if count == 6:
+    #             break
+
+    #     print('-----PROCEED WITH HANDLING THE DUPLICATE ENTRIES ----- ')
+
+sim=list()
 def block1(MRN, fname, lname, address, phone, exp, spez, edu):
     collectionName = 'Block1'
     dedupe(collectionName, MRN, fname, lname, address, phone, exp, spez, edu)
@@ -215,6 +252,7 @@ if __name__ == '__main__':
                                       education_inp))
     p10.start()
 
+    
     p1.join()
     p2.join()
     p3.join()
@@ -226,8 +264,9 @@ if __name__ == '__main__':
     p9.join()
     p10.join()
 
+    print(sim)
     # count = 1
-    # if bool(similarData):
+    # if (flag==0):
     #     print('---Data unique. PROCEED TO ENTER THE DATA INTO THE DATASET/CSV  ---')
     # else:
     #     print('--- SIMILAR ENTRIES FOUND ---')
@@ -251,6 +290,8 @@ if __name__ == '__main__':
     #         count = count + 1
     #         if count == 6:
     #             break
-    #
+    
     #     print('-----PROCEED WITH HANDLING THE DUPLICATE ENTRIES ----- ')
     print('Finished.')
+
+print(simi)

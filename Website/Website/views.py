@@ -7,6 +7,9 @@ def index(request):
     params = {'name': 'Ayan', 'place': 'India'}
     return render(request, 'index.html', params)
 
+def exercise1(request):
+    params = {'name': 'Ayan', 'place': 'India'}
+    return render(request, 'exercise1.html', params)
 
 def analyze(request):
     djtext = request.GET.get('text', 'default')
