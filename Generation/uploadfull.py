@@ -26,3 +26,4 @@ for index, row in df.iterrows():
                                "Years of Exp": yoe, "Specialization": spez,
                                "Education": edu}])
 print("Done")
+ 
