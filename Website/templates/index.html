@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Odd Bit Squad</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script>
+        // select the drop area element
+    var $form = $('.box');
+    // self-invoking function
+    // detect the drag&drop and other features
+    var isAdvancedUpload = function() {
+      var div = document.createElement('div');
+      return (('draggable' in div) || ('ondragstart' in div && 'ondrop' in div)) && 'FormData' in window && 'FileReader' in window;
+    }();
+
+    // show the selected file
+    // get the document element
+    var $input    = $form.find('input[type="file"]'),
+        $label    = $form.find('label'),
+        $boxInput = $form.find('.box__input'),
+        // change the label of the choose file button
+        showFiles = function(files) {
+          //$label.text(files.length > 1 ? ($input.attr('data-multiple-caption') || '').replace( '{count}', files.length ) : $label.html('<u>' + files[ 0 ].name + '</u>'));
+          files.length > 1 ? ($input.attr('data-multiple-caption') || '').replace( '{count}', files.length ) : $label.html('<u>' + files[ 0 ].name + '  ' +' <i class="fa fa-minus-circle" aria-hidden="true"></i>' +'</u>');
+        };
+
+    // add style if feature is supported
+    if (isAdvancedUpload) {
+      $form.addClass('has-advanced-upload');
+
+      var droppedFiles = false;
+      // listen to the drag events
+      $form.on('drag dragstart dragend dragover dragenter dragleave drop', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      })
+      .on('dragover dragenter', function() {
+        $form.addClass('is-dragover');
+      })
+      .on('dragleave dragend drop', function() {
+        $form.removeClass('is-dragover');
+      })
+      .on('drop', function(e) {
+        droppedFiles = e.originalEvent.dataTransfer.files; // file dropped
+        showFiles(droppedFiles);
+        // console.log(droppedFiles);
+
+        // read dropped file
+        var file = droppedFiles[0];
+
+        var reader = new FileReader();
+        // listen to the reader's load event
+        reader.onload = function (evt){
+          //jsonObj = JSON.parse(evt.target.result);
+          console.log(evt.target.result);
+
+        }
+        reader.readAsText(file);
+      });
+
+      // submit data
+      // e.preventDefault();
+      //
+      // var ajaxData = new FormData($form.get(0)); // get data from the Form
+      //
+      // if (droppedFiles){
+      //   // loop over dropped files
+      //   $.each( droppedFiles, function(i, file){
+      //     ajaxData.append( $input.attr('name'), file);
+      //   })
+      // }
+
+      // $.ajax({
+      //   // upload and ajax method goes here
+      // });
+    }
+
+    // upload using Ajax
+
+    // when select file with input control
+    // show the selected file name
+    $input.on('change', function(e) {
+      showFiles(e.target.files);
+    });
+
+
+    </script>
+</head>
+<body>
+<br>
+<br>
+<!-- in spired by https://css-tricks.com/drag-and-drop-file-uploading/ -->
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <div class="center">
+    <!-- file drag drop area -->
+    <div class="col-md-6 col-md-offset-3 text-center">
+      <form class="box" method="post" action="" enctype="multipart/form-data">
+        <div class="box__input">
+          <input class="box__file" type="file" style="visibility: hidden;" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
+          <div id="arrow">
+            <i class="fa fa-arrow-circle-down fa-3x" aria-hidden="true"></i>
+          </div>
+          <label for="file" style="margin-top: 100px;"><strong><u>Choose a file</u></strong> <span class="box__dragndrop"> or drop the file here</span>.</label>
+          <div>
+            <button class="btn btn-primary" style="background-color: #00529b;">Submit</button>
+          </div>
+        </div>
+        <div class="box__uploading">Uploading&hellip;</div>
+        <div class="box__success">Done!</div>
+        <div class="box__error">Error! <span></span></div>
+      </form>
+    </div>
+    <!-- file drag drop area -->
+  </div>
+</body>
+</html>
