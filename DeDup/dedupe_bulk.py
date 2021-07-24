@@ -25,7 +25,7 @@ eduWeight = 0.6
 flag = 0
 data = []
 
-# USER INPUTS - SINGLE CUSTOMER SCENARIO
+# USER INPUTS - BULK DATA
 filename = input("Enter the file path.")
 df = pd.read_csv(filename)
 for index, row in df.iterrows():
@@ -122,6 +122,31 @@ data_summary = pd.DataFrame(data, columns=['MRN', 'First Name', 'Last Name', 'DO
                                                   'Pincode', 'State', 'Years of Exp', 'Specialization', 'Education',
                                                   'SimilarityScore', 'DUP'])
 data_summary.to_csv("Output.csv")
+
+print("Output file generated. Check directory.")
+
+# REPORT GENERATION - WRITING IT TO A FILE.
+size = len(data_summary.index)
+unique_count = (data_summary['DUP'].values == 'U').sum()
+partial_count = (data_summary['DUP'].values == 'P').sum()
+duplicate_count = (data_summary['DUP'].values == 'D').sum()
+unique_count_perc = round(unique_count/size * 100, 2)
+partial_count_perc = round(partial_count/size * 100, 2)
+duplicate_count_perc = round(duplicate_count/size * 100, 2)
+strlist = []
+line1 = "--------Summary of Input Data----------\n"
+line2 = "\n"
+line3 = f"Total numbers of rows in the input data set: {size}."
+line4 = f"\nUnique Entry Count: {unique_count} ({unique_count_perc} %)\n"
+line5 = f"Duplicate Entry Count: {duplicate_count} ({duplicate_count_perc} %)\n"
+line6 = f"Partial Similarity Entry Count: {partial_count} ({partial_count_perc} %)\n"
+strlist = [line1, line2, line3, line4, line5, line6]
+
+f= open("Report10k.txt", "w+")
+for line in strlist:
+    f.write(str(line))
+print("Report Generated! Check file in directory")
+
 
 
 
