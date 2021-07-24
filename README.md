@@ -1,4 +1,4 @@
-# ps10_galactic_leaders
+# De-Dupe Engine
 
 Our project is regarding the de duplication check for deduplication
 with an existing database.
