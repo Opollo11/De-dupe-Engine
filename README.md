@@ -5,9 +5,9 @@ with an existing database.
 
 ### Setbacks with Duplicate Data
 
-- Firstly, presence of duplicate entries can be a huge problem when seen from a storage perspective. Storage isn't cheap. Hence there is a need to minimize storage by avoiding these duplicates.
+- Presence of duplicate entries can be a huge problem when seen from a storage perspective. Storage isn't cheap. Hence there is a need to minimize storage by avoiding these duplicates.
 
-- Second, with the presence of duplicate data, larger is the dataset/database. This is seen as a hindrance for any searching/sorting algorithm as their efficiency is inversely proportional to the size of the data.
+- With the presence of duplicate data, larger is the dataset/database. This is seen as a hindrance for any searching/sorting algorithm as their efficiency is inversely proportional to the size of the data.
 
 ### How do we overcome this?
 
