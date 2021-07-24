@@ -88,7 +88,7 @@ for index, row in df.iterrows():
         tsimilarityScore = (mrnSimilarityScore * mrnWeight + fnameSimilarityScore * fnameWeight +
                            lnameSimilarityScore * lnameWeight + dobSimilarityScore * dobWeight +
                            phoneSimilarityScore * phoneWeight + emailSimilarityScore * emailWeight +
-                           pincodeWeight * pincodeWeight + stateSimilarityScore * stateWeight + spezSimilarityScore * spezWeight +
+                           pincodeSimilarityScore * pincodeWeight + stateSimilarityScore * stateWeight + spezSimilarityScore * spezWeight +
                            eduSimilarityScore * eduWeight) / (
                                       mrnWeight + fnameWeight + lnameWeight + dobWeight + phoneWeight
                                       + emailWeight + pincodeWeight + stateWeight + spezWeight +
@@ -146,65 +146,3 @@ f= open("Report10k.txt", "w+")
 for line in strlist:
     f.write(str(line))
 print("Report Generated! Check file in directory")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# count = 1
-# if flag == 0:
-#     print('---Data unique - PROCEED TO ENTER THE DATA INTO THE DATASET/CSV  ---')
-# else:
-#     print('--- SIMILAR ENTRIES FOUND ---')
-#     data_similarity = pd.DataFrame(data, columns=['MRN', 'First Name', 'Last Name', 'DOB', 'Phone Number', 'Email',
-#                                                   'Pincode', 'State', 'Years of Exp', 'Specialization', 'Education',
-#                                                   'SimilarityScore'])
-#
-#     data_similarity = data_similarity.sort_values('SimilarityScore', ascending=False)
-#     # THIS DATAFRAME CAN BE CONVERTED TO CSV FILE TOO IF NECESSARY
-#     for index, row in data_similarity.iterrows():
-#         print(count)
-#         print("SIMILARITY SCORE: ", row['SimilarityScore'])
-#         print("MRN : ", row["MRN"])
-#         print("Name: ", row['First Name'] + ' ' + row['Last Name'])
-#         print("DOB: ", row['DOB'])
-#         print("Phone: ", row['Phone Number'])
-#         print("Email ID: ", row['Email'])
-#         print("Pincode: ", row["Pincode"])
-#         print("State: ", row["State"])
-#         print("Years of Exp.: ", row["Years of Exp"])
-#         print("Specialization : ", row["Specialization"])
-#         print("Education: ", row["Education"])
-#         print("")
-#         count = count + 1
-#         if count == 6:
-#             break
-#
-#     print('-----PROCEED WITH HANDLING THE DUPLICATE ENTRIES ----- ')
